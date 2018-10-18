@@ -1,10 +1,13 @@
 package coding.yu.autoact.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ShellUtils;
+import com.blankj.utilcode.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_add_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<String> cmds = new ArrayList<>();
@@ -57,17 +60,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button_delete).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_delete_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AutoTask autoTask = new AutoTask();
-//                autoTask.setId(1);
-//                autoTask.setName("Test");
-//                autoTask.setStartTime(System.currentTimeMillis() + 5000);
-//                autoTask.setIntervalTime(60000);
-//
-//                AutoTaskManager.getInstance().deleteTask(autoTask);
-                ShellUtils.execCmd("ls", true);
+                AutoTask autoTask = new AutoTask();
+                autoTask.setId(1);
+                autoTask.setName("Test");
+                autoTask.setStartTime(System.currentTimeMillis() + 5000);
+                autoTask.setIntervalTime(60000);
+
+                AutoTaskManager.getInstance().deleteTask(autoTask);
+            }
+        });
+
+        findViewById(R.id.button_system_app).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> cmds = new ArrayList<>();
+                cmds.add("mount -o rw,remount /system");
+                cmds.add("mkdir " + "/system/app/AutoAct");
+                cmds.add("cp -f " + AppUtils.getAppPath(Utils.getApp().getPackageName()) + " /system/app/AutoAct/AutoAct.apk");
+                cmds.add("chmod 644 /system/app/AutoAct/AutoAct.apk");
+                ShellUtils.execCmd(cmds, true);
+            }
+        });
+
+        findViewById(R.id.button_uninstall).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                AppUtils.uninstallApp(Utils.getApp().getPackageName());
+
+                List<String> cmds = new ArrayList<>();
+                cmds.add("mount -o rw,remount /system");
+                cmds.add("rm -rf /system/app/AutoAct");
+                ShellUtils.execCmd(cmds, true);
+            }
+        });
+
+        findViewById(R.id.button_add_task).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, NewAutoTaskActivity.class));
             }
         });
 

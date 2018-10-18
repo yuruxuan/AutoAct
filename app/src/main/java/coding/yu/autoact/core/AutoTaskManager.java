@@ -50,6 +50,7 @@ public class AutoTaskManager {
         SparseArray<AutoTask> taskList = getAutoTasks();
         for (int i = 0; i < taskList.size(); i++) {
             AutoTask task = taskList.valueAt(i);
+            cancelSingleTask(task);
             setupSingleTask(task);
         }
     }

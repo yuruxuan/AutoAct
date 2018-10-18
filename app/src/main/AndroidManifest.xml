@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.NewAutoTaskActivity" />
+
         <service android:name=".core.AutoActService" />
 
         <receiver android:name=".core.AutoActReceiver" />

@@ -2,18 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/button_add"
+        android:id="@+id/button_add_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="Add AutoTask(Test)" />
 
     <Button
-        android:id="@+id/button_delete"
+        android:id="@+id/button_delete_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:text="Delete AutoTask(Test)" />
+
+
+    <Button
+        android:id="@+id/button_system_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="As System App" />
+
+    <Button
+        android:id="@+id/button_uninstall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel System App" />
+
+    <Button
+        android:id="@+id/button_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add AutoTask" />
+
+    <Button
+        android:id="@+id/button_delete_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete AutoTask" />
 
 </LinearLayout>
