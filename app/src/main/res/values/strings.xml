@@ -19,6 +19,7 @@
     <string name="root_permission">Root Permission</string>
     <string name="root_permission_is_requested">Root Permission is requested</string>
     <string name="change_to_system_app">Change to System APP</string>
+    <string name="change_system_app_successfully">Change to System APP Successfully.</string>
     <string name="clear_app_successfully">Clear APP Successfully.</string>
     <string name="task_has_deleted">Task has deleted.</string>
 
