@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         cmds.add("cp -f " + AppUtils.getAppPath(Utils.getApp().getPackageName()) + " /system/app/AutoAct/AutoAct.apk");
         cmds.add("chmod 644 /system/app/AutoAct/AutoAct.apk");
         cmds.add("rm -rf " + new File(AppUtils.getAppPath(Utils.getApp().getPackageName())).getParent());
+        Toast.makeText(this, R.string.change_to_system_app, Toast.LENGTH_SHORT).show();
         ShellUtils.execCmd(cmds, true);
     }
 
