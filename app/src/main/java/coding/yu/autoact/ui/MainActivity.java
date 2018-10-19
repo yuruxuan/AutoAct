@@ -18,11 +18,6 @@ import coding.yu.autoact.bean.AutoTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int TIME_HOUR_1 = 1000 * 60 * 60;
-    public static final int TIME_HOUR_8 = TIME_HOUR_1 * 8;
-    public static final int TIME_HOUR_12 = TIME_HOUR_1 * 12;
-    public static final int TIME_HOUR_24 = TIME_HOUR_1 * 24;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
                 cmds.add("sleep 2");
                 cmds.add("input keyevent KEYCODE_MENU");
                 cmds.add("sleep 5");
-                cmds.add("am start -n com.hbmcc.heshenghuo/.ui.welcome.WelcomeActivity");
-                cmds.add("sleep 10");
-                cmds.add("input keyevent KEYCODE_BACK");
+                cmds.add("input keyevent KEYCODE_HOME");
                 cmds.add("sleep 2");
+                cmds.add("am start -n com.hbmcc.heshenghuo/.ui.welcome.WelcomeActivity");
+                cmds.add("sleep 15");
+                cmds.add("input keyevent KEYCODE_BACK");
+                cmds.add("sleep 5");
                 cmds.add("input tap 1400 1560");
                 cmds.add("sleep 5");
                 cmds.add("input tap 1300 1300");

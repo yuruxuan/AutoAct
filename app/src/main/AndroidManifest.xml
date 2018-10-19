@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="coding.yu.autoact">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:name=".CustomApplication"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +14,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="coding.yu.autoact.ui.MainActivity">
+        <activity
+            android:name="coding.yu.autoact.ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,11 +24,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.NewAutoTaskActivity" />
+        <activity
+            android:name=".ui.NewAutoTaskActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".core.AutoActService" />
 
-        <receiver android:name=".core.AutoActReceiver" />
+        <receiver android:name=".core.AutoActReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>

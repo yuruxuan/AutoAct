@@ -17,6 +17,8 @@ public class SimpleSettingView extends FrameLayout {
     private TextView mTitleText;
     private TextView mSubTitleText;
 
+    private int mExtraWhat;
+
     public SimpleSettingView(Context context) {
         super(context);
         init();
@@ -63,5 +65,17 @@ public class SimpleSettingView extends FrameLayout {
 
     public void setSubTitleText(String text) {
         mSubTitleText.setText(text);
+    }
+
+    public String getSubTitleText() {
+        return mSubTitleText.getText().toString();
+    }
+
+    public int getExtraWhat() {
+        return mExtraWhat;
+    }
+
+    public void setExtraWhat(int what) {
+        this.mExtraWhat = what;
     }
 }

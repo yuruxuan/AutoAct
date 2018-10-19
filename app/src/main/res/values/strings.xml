@@ -5,6 +5,12 @@
     <string name="script">Script</string>
     <string name="start_time">Start Time</string>
     <string name="interval_time">Interval Time</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="new_task_has_created">New task has created.</string>
+
+    <string-array name="choice_time">
+        <item>24 Hours</item>
+        <item>12 Hours</item>
+        <item>8 Hours</item>
+        <item>1 Hour</item>
+    </string-array>
 </resources>

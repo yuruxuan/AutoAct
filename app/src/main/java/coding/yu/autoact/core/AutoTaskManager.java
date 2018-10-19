@@ -115,6 +115,7 @@ public class AutoTaskManager {
     private void setupSingleTask(AutoTask task) {
         AlarmManager alarmManager = (AlarmManager) Utils.getApp().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(Utils.getApp(), AutoActReceiver.class);
+        intent.setAction(AutoActReceiver.ACTION_EXE_TASK);
         intent.putExtra(AutoActReceiver.EXTRA_EXE_TASK_ID, task.getId());
         PendingIntent pi = PendingIntent.getBroadcast(Utils.getApp(), task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, task.getStartTime(), task.getIntervalTime(), pi);

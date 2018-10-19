@@ -66,9 +66,9 @@ public class AutoTask {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", commands=" + commands +
                 ", startTime=" + startTime +
                 ", intervalTime=" + intervalTime +
+                ", commands=" + commands +
                 '}';
     }
 
