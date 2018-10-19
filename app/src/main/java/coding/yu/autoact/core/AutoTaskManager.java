@@ -25,6 +25,11 @@ import coding.yu.autoact.bean.AutoTask;
  */
 public class AutoTaskManager {
 
+    public static final int TIME_HOUR_1 = 1000 * 60 * 60;
+    public static final int TIME_HOUR_8 = TIME_HOUR_1 * 8;
+    public static final int TIME_HOUR_12 = TIME_HOUR_1 * 12;
+    public static final int TIME_HOUR_24 = TIME_HOUR_1 * 24;
+
     private static final String KEY_ALL_TASK_LIST = "KEY_ALL_TASK_LIST";
 
     private CacheDiskUtils cacheDiskUtils;
@@ -71,7 +76,7 @@ public class AutoTaskManager {
     }
 
     public List<AutoTask> getAutoTaskList() {
-        String str = CacheDiskUtils.getInstance(PathUtils.getInternalAppFilesPath()).getString(KEY_ALL_TASK_LIST, "[]");
+        String str = cacheDiskUtils.getString(KEY_ALL_TASK_LIST, "[]");
         Gson gson = new Gson();
         Type type = new TypeToken<List<AutoTask>>() {}.getType();
         List<AutoTask> list = gson.fromJson(str, type);
@@ -80,17 +85,6 @@ public class AutoTaskManager {
     }
 
     public void addTask(AutoTask task) {
-        setupSingleTask(task);
-
-        SparseArray<AutoTask> array = getAutoTasks();
-        array.put(task.getId(), task);
-
-        Gson gson = new Gson();
-        String str = gson.toJson(SparseArrayUtils.array2List(array));
-        cacheDiskUtils.put(KEY_ALL_TASK_LIST, str);
-    }
-
-    public void editTask(AutoTask task) {
         setupSingleTask(task);
 
         SparseArray<AutoTask> array = getAutoTasks();

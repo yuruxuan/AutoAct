@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,16 +32,13 @@ import coding.yu.autoact.widget.SimpleSettingView;
  */
 public class NewAutoTaskActivity extends AppCompatActivity {
 
-    public static final int TIME_HOUR_1 = 1000 * 60 * 60;
-    public static final int TIME_HOUR_8 = TIME_HOUR_1 * 8;
-    public static final int TIME_HOUR_12 = TIME_HOUR_1 * 12;
-    public static final int TIME_HOUR_24 = TIME_HOUR_1 * 24;
-
     private SimpleSettingView setting_name;
     private SimpleSettingView setting_description;
     private SimpleSettingView setting_script;
     private SimpleSettingView setting_start_time;
     private SimpleSettingView setting_interval_time;
+
+    private AutoTask mExtraAutoTask;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class NewAutoTaskActivity extends AppCompatActivity {
 
         setting_name = findViewById(R.id.setting_name);
         setting_name.setTitleText(R.string.name);
-        setting_name.setSubTitleText("New Task");
+        setting_name.setSubTitleText(getString(R.string.new_task));
         setting_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +64,7 @@ public class NewAutoTaskActivity extends AppCompatActivity {
 
         setting_description = findViewById(R.id.setting_description);
         setting_description.setTitleText(R.string.description);
-        setting_description.setSubTitleText("No description");
+        setting_description.setSubTitleText(getString(R.string.no_description));
         setting_description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +135,39 @@ public class NewAutoTaskActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        int extraId = getIntent().getIntExtra(MainActivity.EXTRA_TASK_ID, -1);
+        SparseArray<AutoTask> array = AutoTaskManager.getInstance().getAutoTasks();
+        mExtraAutoTask = array.get(extraId);
+
+        if (mExtraAutoTask != null) {
+            int which = 0;
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_24) {
+                which = 0;
+            }
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_12) {
+                which = 1;
+            }
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_8) {
+                which = 2;
+            }
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_1) {
+                which = 3;
+            }
+            String[] stringArr = getResources().getStringArray(R.array.choice_time);
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < mExtraAutoTask.getCommands().size(); i++) {
+                builder.append(mExtraAutoTask.getCommands().get(i)).append("\n");
+            }
+
+            setting_name.setSubTitleText(mExtraAutoTask.getName());
+            setting_description.setSubTitleText(mExtraAutoTask.getDescription());
+            setting_script.setSubTitleText(builder.toString());
+            setting_start_time.setSubTitleText(TimeUtils.date2String(new Date(mExtraAutoTask.getStartTime())));
+            setting_interval_time.setSubTitleText(stringArr[which]);
+            setting_interval_time.setExtraWhat(which);
+        }
     }
 
     @Override
@@ -150,9 +181,21 @@ public class NewAutoTaskActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item_save) {
             createNewTask();
             Toast.makeText(this, R.string.new_task_has_created, Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
             finish();
             return true;
         }
+
+        if (item.getItemId() == R.id.item_delete) {
+            if (mExtraAutoTask != null) {
+                AutoTaskManager.getInstance().deleteTask(mExtraAutoTask);
+            }
+            Toast.makeText(this, R.string.task_has_deleted, Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,15 +216,15 @@ public class NewAutoTaskActivity extends AppCompatActivity {
         }
 
         long startTime = TimeUtils.string2Date(startTimeStr).getTime();
-        long intervalTime = TIME_HOUR_24;
+        long intervalTime = AutoTaskManager.TIME_HOUR_24;
         if (intervalTimeWhich == 0) {
-            intervalTime = TIME_HOUR_24;
+            intervalTime = AutoTaskManager.TIME_HOUR_24;
         } else if (intervalTimeWhich == 1) {
-            intervalTime = TIME_HOUR_12;
+            intervalTime = AutoTaskManager.TIME_HOUR_12;
         } else if (intervalTimeWhich == 2) {
-            intervalTime = TIME_HOUR_8;
+            intervalTime = AutoTaskManager.TIME_HOUR_8;
         } else if (intervalTimeWhich == 3) {
-            intervalTime = TIME_HOUR_1;
+            intervalTime = AutoTaskManager.TIME_HOUR_1;
         }
 
         AutoTask task = new AutoTask();
@@ -191,6 +234,10 @@ public class NewAutoTaskActivity extends AppCompatActivity {
         task.setCommands(cmd);
         task.setStartTime(startTime);
         task.setIntervalTime(intervalTime);
+
+        if (mExtraAutoTask != null) {
+            task.setId(mExtraAutoTask.getId());
+        }
 
         AutoTaskManager.getInstance().addTask(task);
     }

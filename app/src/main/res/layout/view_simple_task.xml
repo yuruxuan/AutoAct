@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="18dp"
+    android:layout_marginEnd="18dp">
+
+    <FrameLayout
+        android:id="@+id/layout_end_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/text_end_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/image_end_description"
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_task_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="New Task"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="No Description"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/layout_task_content"
+        android:layout_alignBottom="@id/layout_task_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp"
+        android:background="#28b9aa" />
+
+</RelativeLayout>

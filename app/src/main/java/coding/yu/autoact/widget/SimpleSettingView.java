@@ -50,8 +50,8 @@ public class SimpleSettingView extends FrameLayout {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         params.topMargin = ConvertUtils.dp2px(16);
         params.bottomMargin = ConvertUtils.dp2px(16);
-        params.leftMargin = ConvertUtils.dp2px(20);
-        params.rightMargin = ConvertUtils.dp2px(20);
+        params.leftMargin = ConvertUtils.dp2px(18);
+        params.rightMargin = ConvertUtils.dp2px(18);
         addView(linearLayout, params);
     }
 
