@@ -7,13 +7,17 @@ import android.content.Intent;
 import android.util.SparseArray;
 
 import com.blankj.utilcode.util.CacheDiskUtils;
-import com.blankj.utilcode.util.PathUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import coding.yu.autoact.util.SparseArrayUtils;
@@ -31,6 +35,8 @@ public class AutoTaskManager {
     public static final int TIME_HOUR_24 = TIME_HOUR_1 * 24;
 
     private static final String KEY_ALL_TASK_LIST = "KEY_ALL_TASK_LIST";
+
+    private static final String TAG = "AutoTaskManager";
 
     private CacheDiskUtils cacheDiskUtils;
 
@@ -63,7 +69,8 @@ public class AutoTaskManager {
     public SparseArray<AutoTask> getAutoTasks() {
         String str = cacheDiskUtils.getString(KEY_ALL_TASK_LIST, "[]");
         Gson gson = new Gson();
-        Type type = new TypeToken<List<AutoTask>>() {}.getType();
+        Type type = new TypeToken<List<AutoTask>>() {
+        }.getType();
         List<AutoTask> list = gson.fromJson(str, type);
 
         SparseArray<AutoTask> array = new SparseArray<>();
@@ -78,7 +85,8 @@ public class AutoTaskManager {
     public List<AutoTask> getAutoTaskList() {
         String str = cacheDiskUtils.getString(KEY_ALL_TASK_LIST, "[]");
         Gson gson = new Gson();
-        Type type = new TypeToken<List<AutoTask>>() {}.getType();
+        Type type = new TypeToken<List<AutoTask>>() {
+        }.getType();
         List<AutoTask> list = gson.fromJson(str, type);
 
         return new ArrayList<>(list);
@@ -112,7 +120,10 @@ public class AutoTaskManager {
         intent.setAction(AutoActReceiver.ACTION_EXE_TASK);
         intent.putExtra(AutoActReceiver.EXTRA_EXE_TASK_ID, task.getId());
         PendingIntent pi = PendingIntent.getBroadcast(Utils.getApp(), task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, task.getStartTime(), task.getIntervalTime(), pi);
+        long firstTime = getTargetStartTime(task.getStartTime(), task.getIntervalTime());
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstTime, task.getIntervalTime(), pi);
+        LogUtils.iTag(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime))+" Task:" + task);
+        LogUtils.file(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime))+" Task:" + task);
     }
 
     private void cancelSingleTask(AutoTask task) {
@@ -121,5 +132,27 @@ public class AutoTaskManager {
         intent.putExtra(AutoActReceiver.EXTRA_EXE_TASK_ID, task.getId());
         PendingIntent pi = PendingIntent.getBroadcast(Utils.getApp(), task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pi);
+    }
+
+    private long getTargetStartTime(long origin, long interval) {
+        long current = System.currentTimeMillis();
+        if (origin > current) {
+            return origin;
+        }
+        Calendar target = new GregorianCalendar();
+        target.setTimeInMillis(System.currentTimeMillis());
+
+        Calendar ori = new GregorianCalendar();
+        ori.setTimeInMillis(origin);
+        int minute = ori.get(Calendar.MINUTE);
+
+        target.set(Calendar.MINUTE, minute);
+
+        if (target.getTimeInMillis() > current) {
+            return target.getTimeInMillis();
+        }
+
+        target.add(Calendar.SECOND, (int) (interval / 1000));
+        return target.getTimeInMillis();
     }
 }
