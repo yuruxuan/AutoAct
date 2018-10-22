@@ -16,6 +16,28 @@ import com.blankj.utilcode.util.ConvertUtils;
  */
 public class DialogHelper {
 
+    public static AlertDialog createNormalDialog(Context context, String title, String content, final DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(content);
+        builder.setCancelable(true);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (listener != null) {
+                    listener.onClick(dialog, which);
+                }
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        return builder.create();
+    }
+
     public static AlertDialog createEditDialog(Context context, String title, final OnEditDialogPosClickListener listener) {
         FrameLayout layout = new FrameLayout(context);
         layout.setPadding(ConvertUtils.dp2px(20),

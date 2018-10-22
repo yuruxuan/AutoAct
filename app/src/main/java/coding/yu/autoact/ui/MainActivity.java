@@ -1,5 +1,7 @@
 package coding.yu.autoact.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import coding.yu.autoact.BuildConfig;
 import coding.yu.autoact.core.AutoTaskManager;
 import coding.yu.autoact.R;
 import coding.yu.autoact.bean.AutoTask;
+import coding.yu.autoact.helper.DialogHelper;
 import coding.yu.autoact.widget.SimpleGroupView;
 
 public class MainActivity extends AppCompatActivity {
@@ -78,7 +81,15 @@ public class MainActivity extends AppCompatActivity {
         simple_clear_this_app.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearThisApp();
+                AlertDialog dialog = DialogHelper.createNormalDialog(MainActivity.this,
+                        getString(R.string.warning), getString(R.string.clear_app_tip),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                clearThisApp();
+                            }
+                        });
+                dialog.show();
             }
         });
 

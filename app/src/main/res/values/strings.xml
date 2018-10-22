@@ -3,25 +3,27 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="script">Script</string>
-    <string name="start_time">Start Time</string>
-    <string name="interval_time">Interval Time</string>
+    <string name="start_time">Start time</string>
+    <string name="interval_time">Interval time</string>
     <string name="new_task_has_created">New task has been created.</string>
-    <string name="no_description">No Description</string>
-    <string name="new_task">New Task</string>
-    <string name="create_task">Create Task</string>
+    <string name="no_description">No description</string>
+    <string name="new_task">New task</string>
+    <string name="create_task">Create task</string>
     <string name="add">Add</string>
     <string name="run_every_hour">Run every %s hour(s)</string>
-    <string name="clear_this_app">Clear This APP</string>
+    <string name="clear_this_app">Clear this app</string>
     <string name="effective_after_restart">Effective after restart</string>
     <string name="other_features">Other Features</string>
     <string name="current_task">Current Task</string>
     <string name="necessary">Necessary</string>
-    <string name="root_permission">Root Permission</string>
+    <string name="root_permission">Root permission</string>
     <string name="root_permission_is_requested">Root Permission is requested</string>
-    <string name="change_to_system_app">Change to System APP</string>
-    <string name="change_system_app_successfully">Change to System APP Successfully.</string>
-    <string name="clear_app_successfully">Clear APP Successfully.</string>
+    <string name="change_to_system_app">Change to system app</string>
+    <string name="change_system_app_successfully">Change to system app successfully.</string>
+    <string name="clear_app_successfully">Clear app successfully.</string>
     <string name="task_has_deleted">Task has been deleted.</string>
+    <string name="warning">Warning</string>
+    <string name="clear_app_tip">Do you really want to clear the app?</string>
 
     <string-array name="choice_time">
         <item>24 Hours</item>
