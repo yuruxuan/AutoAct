@@ -139,20 +139,13 @@ public class AutoTaskManager {
         if (origin > current) {
             return origin;
         }
+
+        long l =  current - origin;
+        long extra = l % interval;
+
         Calendar target = new GregorianCalendar();
-        target.setTimeInMillis(System.currentTimeMillis());
-
-        Calendar ori = new GregorianCalendar();
-        ori.setTimeInMillis(origin);
-        int minute = ori.get(Calendar.MINUTE);
-
-        target.set(Calendar.MINUTE, minute);
-
-        if (target.getTimeInMillis() > current) {
-            return target.getTimeInMillis();
-        }
-
-        target.add(Calendar.SECOND, (int) (interval / 1000));
+        target.setTimeInMillis(current);
+        target.add(Calendar.SECOND, (int) (extra / 1000));
         return target.getTimeInMillis();
     }
 }

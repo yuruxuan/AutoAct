@@ -5,7 +5,7 @@
     <string name="script">Script</string>
     <string name="start_time">Start Time</string>
     <string name="interval_time">Interval Time</string>
-    <string name="new_task_has_created">New task has created.</string>
+    <string name="new_task_has_created">New task has been created.</string>
     <string name="no_description">No Description</string>
     <string name="new_task">New Task</string>
     <string name="create_task">Create Task</string>
@@ -21,7 +21,7 @@
     <string name="change_to_system_app">Change to System APP</string>
     <string name="change_system_app_successfully">Change to System APP Successfully.</string>
     <string name="clear_app_successfully">Clear APP Successfully.</string>
-    <string name="task_has_deleted">Task has deleted.</string>
+    <string name="task_has_deleted">Task has been deleted.</string>
 
     <string-array name="choice_time">
         <item>24 Hours</item>

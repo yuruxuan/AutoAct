@@ -110,6 +110,9 @@ public class NewAutoTaskActivity extends AppCompatActivity {
                                 calendar.setTime(new Date());
                                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                 calendar.set(Calendar.MINUTE, minute);
+                                if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
+                                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                }
                                 String date2Str = TimeUtils.date2String(calendar.getTime());
                                 setting_start_time.setSubTitleText(date2Str);
                             }
