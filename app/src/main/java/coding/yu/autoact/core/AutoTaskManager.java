@@ -141,7 +141,7 @@ public class AutoTaskManager {
         }
 
         long l =  current - origin;
-        long extra = l % interval;
+        long extra = interval - (l % interval);
 
         Calendar target = new GregorianCalendar();
         target.setTimeInMillis(current);
