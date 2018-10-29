@@ -24,11 +24,13 @@
     <string name="task_has_deleted">Task has been deleted.</string>
     <string name="warning">Warning</string>
     <string name="clear_app_tip">Do you really want to clear the app?</string>
+    <string name="autotask_will_be_executed">AutoTask will be executed.</string>
 
     <string-array name="choice_time">
         <item>24 Hours</item>
         <item>12 Hours</item>
         <item>8 Hours</item>
+        <item>4 Hours</item>
         <item>1 Hour</item>
     </string-array>
 </resources>

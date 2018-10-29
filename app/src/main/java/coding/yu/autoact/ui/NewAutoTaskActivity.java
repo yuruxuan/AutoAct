@@ -154,8 +154,11 @@ public class NewAutoTaskActivity extends AppCompatActivity {
             if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_8) {
                 which = 2;
             }
-            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_1) {
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_4) {
                 which = 3;
+            }
+            if (mExtraAutoTask.getIntervalTime() == AutoTaskManager.TIME_HOUR_1) {
+                which = 4;
             }
             String[] stringArr = getResources().getStringArray(R.array.choice_time);
 
@@ -227,6 +230,8 @@ public class NewAutoTaskActivity extends AppCompatActivity {
         } else if (intervalTimeWhich == 2) {
             intervalTime = AutoTaskManager.TIME_HOUR_8;
         } else if (intervalTimeWhich == 3) {
+            intervalTime = AutoTaskManager.TIME_HOUR_4;
+        } else if (intervalTimeWhich == 4) {
             intervalTime = AutoTaskManager.TIME_HOUR_1;
         }
 

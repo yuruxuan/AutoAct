@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.SparseArray;
 
 import com.blankj.utilcode.util.CacheDiskUtils;
@@ -30,6 +31,7 @@ import coding.yu.autoact.bean.AutoTask;
 public class AutoTaskManager {
 
     public static final int TIME_HOUR_1 = 1000 * 60 * 60;
+    public static final int TIME_HOUR_4 = TIME_HOUR_1 * 4;
     public static final int TIME_HOUR_8 = TIME_HOUR_1 * 8;
     public static final int TIME_HOUR_12 = TIME_HOUR_1 * 12;
     public static final int TIME_HOUR_24 = TIME_HOUR_1 * 24;
@@ -121,9 +123,13 @@ public class AutoTaskManager {
         intent.putExtra(AutoActReceiver.EXTRA_EXE_TASK_ID, task.getId());
         PendingIntent pi = PendingIntent.getBroadcast(Utils.getApp(), task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         long firstTime = getTargetStartTime(task.getStartTime(), task.getIntervalTime());
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstTime, task.getIntervalTime(), pi);
-        LogUtils.iTag(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime))+" Task:" + task);
-        LogUtils.file(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime))+" Task:" + task);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, firstTime, pi);
+        } else {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstTime, task.getIntervalTime(), pi);
+        }
+        LogUtils.iTag(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime)) + " Task:" + task);
+        LogUtils.file(TAG, "Next Time:" + TimeUtils.date2String(new Date(firstTime)) + " Task:" + task);
     }
 
     private void cancelSingleTask(AutoTask task) {
@@ -140,7 +146,7 @@ public class AutoTaskManager {
             return origin;
         }
 
-        long l =  current - origin;
+        long l = current - origin;
         long extra = interval - (l % interval);
 
         Calendar target = new GregorianCalendar();
