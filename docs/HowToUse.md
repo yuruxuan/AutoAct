@@ -1,6 +1,6 @@
 ## Necessary
 The root Android device is required.  
-Recommend:TWRP+Magisk  
+Recommend: [TWRP](https://twrp.me/)+[Magisk](https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445)  
 
 ## Step by step
 ### Step 1
