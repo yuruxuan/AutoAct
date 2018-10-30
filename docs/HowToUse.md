@@ -1,7 +1,5 @@
 # How to use
-
-## Necessary
-The root Android device is required.  
+The __ROOT__ Android device is required.  
 Recommend: [TWRP](https://twrp.me/)+[Magisk](https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445)  
 
 ## Step by step
