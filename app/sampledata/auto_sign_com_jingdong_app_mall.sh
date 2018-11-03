@@ -14,5 +14,7 @@ input tap 180 1050
 sleep 5
 input tap 720 600
 sleep 5
+input tap 780 500
+sleep 5
 am force-stop com.jingdong.app.mall
 sleep 5
